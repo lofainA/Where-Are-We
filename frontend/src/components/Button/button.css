@@ -1,0 +1,18 @@
+.button {
+    border: 5px solid white;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    background-color: #2c78bb; /* Default color */
+    width: fit-content;
+    cursor: pointer;
+}
+
+.button-text {
+    color: white;
+    text-align: center;
+}
+
+.button:hover {
+    filter: brightness(1.2);
+}
+

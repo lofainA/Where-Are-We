@@ -1,0 +1,76 @@
+.create-room-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    height: 100vh;
+    background-color: #104338;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+
+.room-name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.room-name-label {
+    font-size: 4rem;
+}
+
+.room-name-input {
+    width: 16rem;
+    height: 2.5rem;
+    border: 5px solid #ffffff;
+    border-radius: 1rem;
+    background-color: transparent;
+    align-content: center;
+    text-align: center;
+    color: #8FFFD1;
+    font-size: 1.5rem;
+}
+
+.room-name-input:focus {
+    outline: none;
+    border-color: #8FFFD1;
+}
+
+.room-settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 17rem;
+    gap: 1rem;
+}
+
+.setting {
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.setting input {
+    width: 4rem;
+    height: 2rem;
+    border: 2px solid #ffffff;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    text-align: center;
+    color: #8FFFD1;
+    font-size: 1.2rem;
+}
+
+.setting input:focus {
+    outline: none;
+    border-color: #8FFFD1;
+}
+
+.create-btn {
+    background-color: #A33107;
+}

@@ -1,0 +1,77 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    height: 100vh;
+    background-color: #103943;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.title {
+    font-size: 4rem;
+}
+
+.subtitle {
+    font-size: 1.4rem;
+    width: 70%;
+    text-align: center;
+}
+
+.player-name-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .7rem;
+}
+
+.nickname-label {
+    font-size: 2rem;
+}
+
+.nickname-input {
+    width: 20rem;
+    height: 3rem;
+    border: 5px solid #ffffff;
+    border-radius: 1rem;
+    background-color: transparent;
+    align-content: center;
+    text-align: center;
+    color: #8FFFD1;
+    font-size: 1.5rem;
+}
+
+.nickname-input:focus {
+    outline: none;
+    border-color: #8FFFD1;
+}
+
+.room-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.button {
+    font-size: 2rem;
+}
+
+.create-room {
+    background-color: #6E52AA;
+}
+
+.join-room {
+    background-color: #C09635;
+}

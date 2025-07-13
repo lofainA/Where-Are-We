@@ -1,0 +1,18 @@
+.copy-right-component {
+  height: 32px;
+  position: relative;
+  width: 361px;
+}
+
+.copy-right-component .text-wrapper {
+  color: #ffffff;
+  font-family: "Jersey 20-Regular", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  height: 32px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: -1px;
+}

@@ -1,0 +1,38 @@
+.join-room-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    height: 100vh;
+    background-color: #104338;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+
+.room-code-label {
+    font-size: 4rem;
+}
+
+.room-code-input {
+    width: 14rem;
+    height: 4rem;
+    border: 5px solid #ffffff;
+    border-radius: 1rem;
+    background-color: transparent;
+    align-content: center;
+    text-align: center;
+    color: #8FFFD1;
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+
+.room-code-input:focus {
+    outline: none;
+    border-color: #8FFFD1;
+}
+
+.join-btn {
+    background-color: #38A307;
+}
