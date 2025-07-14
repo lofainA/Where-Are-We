@@ -40,6 +40,10 @@ const getPlayers = (roomId) => {
     return rooms[roomId]?.players || [];
 };
 
+const getRoomName = (roomId) => {
+    return rooms[roomId]?.roomName || "Eror: Room not found";
+}
+
 const removePlayer = (socketId) => {
     for (const roomId in rooms) {
         const players = rooms[roomId].players;
@@ -73,7 +77,7 @@ const deleteRoom = (roomId) => {
     delete rooms[roomId];
 };
 
-function getAllRooms() {
+const getAllRooms = () => {
   return rooms;
 }
 
@@ -81,6 +85,7 @@ export default {
     createNewRoom,
     addPlayerToRoom,
     getPlayers,
+    getRoomName,
     getAllRooms,
     removePlayer,
     deleteRoom

@@ -29,7 +29,7 @@ export const joinRoom = (io, socket, { roomId, playerName }) => {
 
         console.log(`${playerName} joined room: ${roomId}`);
 
-        io.to(roomId).emit('update-players', players);
+        io.to(roomId).emit('updated-players', players);
     } 
     
     else {
@@ -43,6 +43,17 @@ export const disconnectPlayer = (io, socket) => {
     if (roomId) {
         const players = roomStore.getPlayers(roomId);
         if (players.length === 0) roomStore.deleteRoom(roomId);
-        else io.to(roomId).emit('update-players', players);
+        else io.to(roomId).emit('updated-players', players);
     }
 };
+
+export const getRoomPlayers = (io, socket, roomId) => {
+    const players = roomStore.getPlayers(roomId);
+    // console.log(`In roomController: Players in room ${roomId}:`, players);
+    socket.emit('updated-players', players);
+}
+
+export const getRoomName = (io, socket, roomId) => {
+    const roomName = roomStore.getRoomName(roomId);
+    socket.emit('room-name-updated', roomName);
+}

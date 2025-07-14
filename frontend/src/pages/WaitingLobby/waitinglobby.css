@@ -1,0 +1,10 @@
+.waiting-lobby-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5%;
+    height: 100vh;
+    background-color: #432D10;
+    color: #FFFFFF
+} 
+

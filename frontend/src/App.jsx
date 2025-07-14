@@ -9,14 +9,20 @@ import WaitingLobby from './pages/WaitingLobby/WaitingLobby';
 import { PlayerContext } from './contexts/PlayerContext';
 import { RoomContext } from './contexts/RoomContext';
 
+import socket from './socket';
+
 const App = () => {
 
     const navigate = useNavigate();
 
+    // Player state
     const [playerName, setPlayerName] = useState('');
     const [role, setRole] = useState(''); // 'host' or 'player'
 
+    // Room state
     const [roomId, setRoomId] = useState('');
+    const [roomName, setRoomName] = useState('');
+    const [players, setPlayers] = useState([]);
 
     useEffect(() => {
         if(playerName.trim() === '') {
@@ -25,9 +31,27 @@ const App = () => {
         }
     }, [playerName]);
 
+    useEffect(() => {
+        socket.emit('get-room-players', roomId);
+
+        const handlePlayerUpdate = (newPlayers) => setPlayers(newPlayers);
+        socket.on('updated-players', handlePlayerUpdate);
+
+        return () => socket.off('updated-players', handlePlayerUpdate);
+    }, [])
+
+    useEffect(() => {
+        socket.emit('get-room-name', roomId);
+
+        const handleRoomNameUpdate = (name) => setRoomName(name);
+        socket.on('room-name-updated', handleRoomNameUpdate);
+
+        return () => socket.off('room-name-updated', handleRoomNameUpdate);
+    }, [roomId]);
+
     return (
         <PlayerContext.Provider value={{ playerName, setPlayerName, role, setRole }}>
-            <RoomContext.Provider value={{ roomId, setRoomId }}>
+            <RoomContext.Provider value={{ roomId, setRoomId, roomName, setRoomName, players, setPlayers }}>
                 <div className="app">
                     <Routes>
                         <Route path="/" element={<LandingPage />} />
