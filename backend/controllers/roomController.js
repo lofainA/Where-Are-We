@@ -57,3 +57,8 @@ export const getRoomName = (io, socket, roomId) => {
     const roomName = roomStore.getRoomName(roomId);
     socket.emit('room-name-updated', roomName);
 }
+
+export const getMaxPlayers = (io, socket, roomId) => {
+    const maxPlayers = roomStore.getMaxPlayers(roomId);
+    socket.emit('max-players-updated', maxPlayers);
+};

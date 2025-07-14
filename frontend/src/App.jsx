@@ -23,6 +23,7 @@ const App = () => {
     const [roomId, setRoomId] = useState('');
     const [roomName, setRoomName] = useState('');
     const [players, setPlayers] = useState([]);
+    const [maxPlayers, setMaxPlayers] = useState(4);
 
     useEffect(() => {
         if(playerName.trim() === '') {
@@ -48,6 +49,15 @@ const App = () => {
 
         return () => socket.off('room-name-updated', handleRoomNameUpdate);
     }, [roomId]);
+
+    useEffect(() => {
+        socket.emit('get-max-players', roomId);
+
+        const handleMaxPlayersUpdate = (max) => setMaxPlayers(max);
+        socket.on('max-players-updated', handleMaxPlayersUpdate);
+
+        return () => socket.off('max-players-updated', handleMaxPlayersUpdate);
+    }, [roomId])
 
     return (
         <PlayerContext.Provider value={{ playerName, setPlayerName, role, setRole }}>

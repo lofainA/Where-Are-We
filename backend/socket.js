@@ -1,6 +1,7 @@
 import {
     createRoom,
     disconnectPlayer,
+    getMaxPlayers,
     getRoomName,
     getRoomPlayers,
     joinRoom
@@ -13,6 +14,7 @@ function setupSocket(io) {
         socket.on('disconnect', () => disconnectPlayer(io, socket));
         socket.on('get-room-players', (roomId) => getRoomPlayers(io,socket, roomId));
         socket.on('get-room-name', (roomId) => getRoomName(io, socket, roomId));
+        socket.on('get-max-players', (roomId) => getMaxPlayers(io, socket, roomId));
     });
 }
 

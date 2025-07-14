@@ -5,6 +5,7 @@ import { RoomContext } from "../../contexts/RoomContext";
 import socket from "../../socket";
 
 import './waitinglobby.css';
+import PlayerCard from "../../components/PlayerCard/PlayerCard";
 
 const WaitingLobby = () => {
     const { playerName, role } = useContext(PlayerContext);
@@ -14,25 +15,20 @@ const WaitingLobby = () => {
 
     return (
         <div className="waiting-lobby-container">
-            <div className="waiting-lobby">
-                <h1>Waiting Lobby for {roomName} </h1>
-                <p>Welcome, {playerName}!</p>
-                <p>Your role: {role}</p>
-                <p>Waiting for other players to join...</p>
+            <div className="room-name-header">
+                {roomName}
             </div>
-            <div className="players-list">
-                <h2>Players in Room:</h2>
-                {players.length > 0 ? (
-                    <ul>
-                        {players.map((player, index) => (
-                            <li key={index}>
-                                {player.name} ({player.role})
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No players in the room yet.</p>
-                )}
+            {players.length > 0 ? (
+                <div className="players">
+                    {players.map((player, index) => (
+                        <PlayerCard playerName={player.name} role={player.role} key={index} />
+                    ))}
+                </div>
+            ) : (
+                <p>No players in the room yet.</p>
+            )}
+            <div className="player-count">
+                <div></div>
             </div>
         </div>
     );

@@ -44,6 +44,10 @@ const getRoomName = (roomId) => {
     return rooms[roomId]?.roomName || "Eror: Room not found";
 }
 
+const getMaxPlayers = (roomId) => {
+    return rooms[roomId]?.maxPlayers || 4; // Default max players if not set
+}
+
 const removePlayer = (socketId) => {
     for (const roomId in rooms) {
         const players = rooms[roomId].players;
@@ -86,6 +90,7 @@ export default {
     addPlayerToRoom,
     getPlayers,
     getRoomName,
+    getMaxPlayers,
     getAllRooms,
     removePlayer,
     deleteRoom

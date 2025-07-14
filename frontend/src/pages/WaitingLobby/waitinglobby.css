@@ -3,8 +3,22 @@
     flex-direction: column;
     align-items: center;
     padding-top: 5%;
+    width: 100vw;
     height: 100vh;
     background-color: #432D10;
-    color: #FFFFFF
+    color: #FFFFFF;
+    gap: 2rem;
 } 
 
+.room-name-header {
+    font-size: 4rem;
+    color: #ffffff;
+}
+
+.players {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    width: 60%;
+}

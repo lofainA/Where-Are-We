@@ -1,0 +1,16 @@
+.player-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border: 2px solid #ffffff;
+    border-radius: 1rem;
+    width: 10rem;
+}
+
+.player-name {
+    font-size: 1.5rem;
+    color: #ffffff;
+}
