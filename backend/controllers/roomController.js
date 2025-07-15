@@ -26,10 +26,14 @@ export const joinRoom = (io, socket, { roomId, playerName }) => {
         socket.join(roomId);
         const players = roomStore.getPlayers(roomId);
         socket.emit('joined-successfully', roomId);
-
         console.log(`${playerName} joined room: ${roomId}`);
 
         io.to(roomId).emit('updated-players', players);
+    } 
+
+    else if (success === "game already started") {
+        console.error(`Game already started in room ${roomId}. ${playerName} could not join.`);
+        return socket.emit('game-already-started');
     } 
     
     else {

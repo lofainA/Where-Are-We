@@ -1,5 +1,5 @@
-import { generateGameId } from "./randomUtils";
-import roomStore from "./roomStore";
+import { generateGameId } from "./randomUtils.js";
+import roomStore from "./roomStore.js";
 
 const games = {
     // "randomlyGeneratedId": {
@@ -11,21 +11,39 @@ const games = {
     // }
 };
 
+const locations = [
+    "museum", "park", "restaurant",
+    "hospital", "school", "library",
+    "cinema", "beach", "zoo",
+    "market", "stadium", "amusement park",
+    "aquarium", "art gallery",
+    "nursery", "bakery", "cafe",
+    "gym", "pharmacy", "supermarket",
+    "bank", "police station", "fire station",
+    "train station", "airport", 
+];
+
 const createNewGame = (roomId) => {
+    // Check if a game already exists for this room
+    for (const id in games) {
+        if (games[id].roomId === roomId) {
+            return null;
+        }
+    }
     let gameId = generateGameId();
 
     // Prevent duplicate gameIds
-    while(games[gameId]) {
+    while (games[gameId]) {
         gameId = generateGameId();
     }
-
     games[gameId] = {
         roomId: roomId,
         players: roomStore.getPlayers(roomId),
         liar: "",
         location: "",
         currRound: 1
-    }
+    };
+    return gameId;
 }
 
 const assignRoles = (gameId) => {
@@ -41,4 +59,45 @@ const assignRoles = (gameId) => {
             games[gameId].players[i].gameRole = 'liar';
         }
     }
+    games[gameId].liar = players[liar].id;
+    console.log(`Assigned roles for game ${gameId}:`, games[gameId].players);
+}
+
+const assignLocation = (gameId) => {
+    if(!games[gameId]) return null;
+    if(games[gameId].location != "") return; // Location already assigned
+    const randomIndex = Math.floor(Math.random() * locations.length);
+    games[gameId].location = locations[randomIndex];
+    return games[gameId].location;
+}
+
+const getGame = (gameId) => {
+    return games[gameId] || null;
+};
+
+const getPlayers = (gameId) => {
+    return games[gameId]?.players || null;
+};
+
+const getLiar = (gameId) => {
+    return games[gameId]?.liar || null;
+};
+
+const getLocation = (gameId) => {
+    return games[gameId]?.location || null;
+};
+
+const getCurrRound = (gameId) => {
+    return games[gameId]?.currRound || null;
+};
+
+export default {
+    createNewGame,
+    assignRoles,
+    assignLocation,
+    getGame,
+    getPlayers,
+    getLiar,
+    getLocation,
+    getCurrRound
 }

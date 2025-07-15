@@ -6,7 +6,8 @@ const rooms = {
     //     roomName: "Madlads",
     //     players: [{ id: "123", name: "Aysha", role: "player", gameRole: "none" }],
     //     maxPlayers: 9,
-    //     liarCount: 2
+    //     liarCount: 2,
+    //     game: gameId // Optional, if game is started
     // }
 };
 
@@ -20,7 +21,8 @@ const createNewRoom = (roomName, maxPlayers, liarCount) => {
         roomName,
         maxPlayers,
         liarCount,
-        players: []
+        players: [],
+        game: null
     };
 
     return roomId;
@@ -31,6 +33,10 @@ const addPlayerToRoom = (roomId, socketId, name, role) => {
 
     const room = rooms[roomId];
     if (room.players.length >= room.maxPlayers) return "room is full";
+
+    if(room.game !== null) {
+        return "game already started";
+    }
 
     room.players.push({ id: socketId, name, role, gameRole: "null" });
     return "success";

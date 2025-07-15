@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { PlayerContext } from "../../contexts/PlayerContext";
 import { RoomContext } from "../../contexts/RoomContext";
 
@@ -9,7 +10,8 @@ import PlayerCard from "../../components/PlayerCard/PlayerCard";
 import { Button } from "../../components/Button/Button";
 
 const WaitingLobby = () => {
-    const { playerName, role } = useContext(PlayerContext);
+    const navigate = useNavigate();
+    const { role } = useContext(PlayerContext);
     const { roomId, players, roomName, maxPlayers } = useContext(RoomContext);
     
     // TODO: update players in roomcontext when start game is clicked
@@ -18,7 +20,11 @@ const WaitingLobby = () => {
 
     const handleGameStart = () => {
         if (role !== 'host') return;    
-        socket.emit("start-game", roomId)
+        socket.emit("start-game", roomId);
+
+        let gameIdTemp = "";
+        socket.on("game-started", (gameId) => {gameIdTemp = gameId;});
+        navigate(`/${roomId}/game/${gameIdTemp}`);
     }
 
     return (

@@ -10,6 +10,7 @@ import { PlayerContext } from './contexts/PlayerContext';
 import { RoomContext } from './contexts/RoomContext';
 
 import socket from './socket';
+import { use } from 'react';
 
 const App = () => {
 
@@ -18,6 +19,7 @@ const App = () => {
     // Player state
     const [playerName, setPlayerName] = useState('');
     const [role, setRole] = useState(''); // 'host' or 'player'
+    const [gameRole, setGameRole] = useState('none'); // 'liar' or 'real'
 
     // Room state
     const [roomId, setRoomId] = useState('');
@@ -31,6 +33,19 @@ const App = () => {
             navigate('/'); // Redirect to landing page
         }
     }, [playerName]);
+
+    useEffect(() => {
+        const handleGameInitialized = ({ _, players }) => {
+            for (let i = 0; i < players.length; i++) {
+                if (players[i].id === socket.id) {
+                    setGameRole(players[i].gameRole);
+                    break;
+                }
+            }
+        };
+        socket.on('game-initialized', handleGameInitialized);
+        return () => socket.off('game-initialized', handleGameInitialized);
+    }, []);
 
     useEffect(() => {
         socket.emit('get-room-players', roomId);
@@ -60,14 +75,18 @@ const App = () => {
     }, [roomId])
 
     return (
-        <PlayerContext.Provider value={{ playerName, setPlayerName, role, setRole }}>
-            <RoomContext.Provider value={{ roomId, setRoomId, roomName, setRoomName, players, setPlayers, maxPlayers, setMaxPlayers }}>
+        <PlayerContext.Provider value={{ playerName, setPlayerName, role, setRole, gameRole, setGameRole }}>
+            <RoomContext.Provider value={{ roomId, setRoomId, 
+                                           roomName, setRoomName, 
+                                           players, setPlayers, 
+                                           maxPlayers, setMaxPlayers }}>
                 <div className="app">
                     <Routes>
                         <Route path="/" element={<LandingPage />} />
                         <Route path="/create-room" element={<CreateRoom />} />
                         <Route path="/join-room" element={<JoinRoom />} />
                         <Route path="/waiting-lobby/:roomId" element={<WaitingLobby />} />
+                        <Route path="/:roomId/game/:gameId" element={<Game />} />
                     </Routes>
                 </div>
             </RoomContext.Provider>
