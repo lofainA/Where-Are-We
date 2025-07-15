@@ -6,10 +6,11 @@ import socket from "../../socket";
 
 import './waitinglobby.css';
 import PlayerCard from "../../components/PlayerCard/PlayerCard";
+import { Button } from "../../components/Button/Button";
 
 const WaitingLobby = () => {
     const { playerName, role } = useContext(PlayerContext);
-    const { roomId, players, roomName } = useContext(RoomContext);
+    const { roomId, players, roomName, maxPlayers } = useContext(RoomContext);
     
     // TODO: update players in roomcontext when start game is clicked
 
@@ -27,8 +28,24 @@ const WaitingLobby = () => {
             ) : (
                 <p>No players in the room yet.</p>
             )}
+            
             <div className="player-count">
-                <div></div>
+                <div className={`player-count-text ${players.length == maxPlayers ? 'max-reached' : ''}`}>
+                    {players.length} / {maxPlayers}
+                </div>
+                {players.length >= maxPlayers && (
+                    <div className="max-reached-label">
+                        LOBBY IS FULL!
+                    </div>
+                )}
+            </div>
+            <div className="start-game-button-container">
+                {role == "host" && (
+                    <Button 
+                        className={`start-game-button ${players.length >= 3 ? '' : 'disabled'}`}
+                        text="Start Game" 
+                        onClick={() => socket.emit("startGame", roomId)} />
+                )}  
             </div>
         </div>
     );

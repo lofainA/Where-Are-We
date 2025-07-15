@@ -61,7 +61,7 @@ const App = () => {
 
     return (
         <PlayerContext.Provider value={{ playerName, setPlayerName, role, setRole }}>
-            <RoomContext.Provider value={{ roomId, setRoomId, roomName, setRoomName, players, setPlayers }}>
+            <RoomContext.Provider value={{ roomId, setRoomId, roomName, setRoomName, players, setPlayers, maxPlayers, setMaxPlayers }}>
                 <div className="app">
                     <Routes>
                         <Route path="/" element={<LandingPage />} />

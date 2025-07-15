@@ -1,3 +1,9 @@
+:root {
+	--pixel-bg: lightblue; /* Inner background color */
+	--pixel-border: black; /* Inner border color: */
+	--pixel: .125rem; /* Pixel size */
+}
+
 .player-card {
     display: flex;
     flex-direction: row;
@@ -5,9 +11,9 @@
     justify-content: flex-start;
     gap: 1rem;
     padding: 1rem;
-    border: 2px solid #ffffff;
-    border-radius: 1rem;
+    border: 5px solid #ffffff;
     width: 10rem;
+    box-shadow: 7px 7px 0 rgba(0, 0, 0, 1);
 }
 
 .player-name {
