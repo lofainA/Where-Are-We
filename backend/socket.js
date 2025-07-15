@@ -4,7 +4,8 @@ import {
     getMaxPlayers,
     getRoomName,
     getRoomPlayers,
-    joinRoom
+    joinRoom,
+    initializeGame
 } from './controllers/roomController.js';
 
 function setupSocket(io) {
@@ -15,6 +16,7 @@ function setupSocket(io) {
         socket.on('get-room-players', (roomId) => getRoomPlayers(io,socket, roomId));
         socket.on('get-room-name', (roomId) => getRoomName(io, socket, roomId));
         socket.on('get-max-players', (roomId) => getMaxPlayers(io, socket, roomId));
+        socket.on('start-game', (data) => {initializeGame(io, socket, data)})
     });
 }
 

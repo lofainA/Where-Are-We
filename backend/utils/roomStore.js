@@ -4,7 +4,7 @@ const rooms = {
     // Example:
     // 'ABCDEF': {
     //     roomName: "Madlads",
-    //     players: [{ id: "123", name: "Aysha", role: "guesser" }]
+    //     players: [{ id: "123", name: "Aysha", role: "player", gameRole: "none" }],
     //     maxPlayers: 9,
     //     liarCount: 2
     // }
@@ -32,7 +32,7 @@ const addPlayerToRoom = (roomId, socketId, name, role) => {
     const room = rooms[roomId];
     if (room.players.length >= room.maxPlayers) return "room is full";
 
-    room.players.push({ id: socketId, name, role });
+    room.players.push({ id: socketId, name, role, gameRole: "null" });
     return "success";
 };
 

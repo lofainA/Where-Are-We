@@ -14,6 +14,13 @@ const WaitingLobby = () => {
     
     // TODO: update players in roomcontext when start game is clicked
 
+    // BUG: host not getting updated about players on inital join
+
+    const handleGameStart = () => {
+        if (role !== 'host') return;    
+        socket.emit("start-game", roomId)
+    }
+
     return (
         <div className="waiting-lobby-container">
             <div className="room-name-header">
@@ -44,7 +51,7 @@ const WaitingLobby = () => {
                     <Button 
                         className={`start-game-button ${players.length >= 3 ? '' : 'disabled'}`}
                         text="Start Game" 
-                        onClick={() => socket.emit("startGame", roomId)} />
+                        onClick={handleGameStart} />
                 )}  
             </div>
         </div>
