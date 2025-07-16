@@ -43,6 +43,7 @@ const createNewGame = (roomId) => {
         location: "",
         currRound: 1
     };
+    // .log("Created Game: ", games[gameId]);
     return gameId;
 }
 
@@ -51,6 +52,9 @@ const assignRoles = (gameId) => {
     
     const liar = Math.floor(Math.random() * games[gameId].players.length);
     const players = games[gameId].players;
+    // console.log("Assign roles method: ");
+    console.log("Game Id: " + gameId);
+    // console.log("Players: " + players)
 
     for(var i = 0; i < players.length; i++) {
         if(i != liar) {
@@ -59,6 +63,7 @@ const assignRoles = (gameId) => {
             games[gameId].players[i].gameRole = 'liar';
         }
     }
+    //console.log("Liar: ", players[liar]); // Testing
     games[gameId].liar = players[liar].id;
     console.log(`Assigned roles for game ${gameId}:`, games[gameId].players);
 }
@@ -69,6 +74,12 @@ const assignLocation = (gameId) => {
     const randomIndex = Math.floor(Math.random() * locations.length);
     games[gameId].location = locations[randomIndex];
     return games[gameId].location;
+}
+
+// TODO: Delete game method
+
+const getAllGames = () => {
+    return games;
 }
 
 const getGame = (gameId) => {
@@ -99,5 +110,6 @@ export default {
     getPlayers,
     getLiar,
     getLocation,
-    getCurrRound
+    getCurrRound,
+    getAllGames
 }

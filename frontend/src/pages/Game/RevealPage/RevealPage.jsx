@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { PlayerContext } from '../../contexts/PlayerContext';
+import { PlayerContext } from '../../../contexts/PlayerContext';
 
 const RevealPage = () => {
 

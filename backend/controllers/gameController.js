@@ -1,6 +1,7 @@
 import gameStore from "../utils/gameStore.js";
+import roomStore from "../utils/roomStore.js";
 
-export const initializeGame = (io, socket, { roomId }) => {
+export const initializeGame = (io, socket, roomId) => {
     // Create new game in game store
     // Initialize round number as 1
     // Assign a person as liar
@@ -12,7 +13,11 @@ export const initializeGame = (io, socket, { roomId }) => {
         return socket.emit('game-init-error', 'Game already exists for this room');
     }
     gameStore.assignRoles(gameId);
-    socket.emit('game-initialized', { gameId, players: gameStore.getPlayers(gameId) });
+    gameStore.assignLocation(gameId);
+
+    roomStore.rooms[roomId].game = gameId; // TODO: assign game to room (current task)
+    // socket.emit('game-initialized', { gameId,  });
+    io.to(roomId).emit('game-initialized', { gameId: gameId, players: gameStore.getPlayers(gameId) })
 };
 
 export const nextRound = (io, socket, { gameId }) => {
@@ -41,3 +46,7 @@ export const endGame = (io, socket, { gameId }) => {
     // Clean up the game data
     delete gameStore.games[gameId];
 }
+
+// TODO: Remove player from game method
+
+// TODO: Delete game if room is empty

@@ -5,6 +5,7 @@ import CreateRoom from './pages/CreateRoom/CreateRoom';
 import JoinRoom from './pages/JoinRoom/JoinRoom';
 import LandingPage from './pages/LandingPage/LandingPage';
 import WaitingLobby from './pages/WaitingLobby/WaitingLobby';
+import Game from './pages/Game/Game';
 
 import { PlayerContext } from './contexts/PlayerContext';
 import { RoomContext } from './contexts/RoomContext';

@@ -54,6 +54,14 @@ const getMaxPlayers = (roomId) => {
     return rooms[roomId]?.maxPlayers || 4; // Default max players if not set
 }
 
+const getGame = (roomId) => {
+    return rooms[roomId]?.game || null;
+};
+
+const setGame = (roomId, gameId) => {
+    rooms[roomId].game = gameId;
+}
+
 const removePlayer = (socketId) => {
     for (const roomId in rooms) {
         const players = rooms[roomId].players;
@@ -92,6 +100,8 @@ const getAllRooms = () => {
 }
 
 export default {
+    rooms,
+    setGame,
     createNewRoom,
     addPlayerToRoom,
     getPlayers,
@@ -99,6 +109,7 @@ export default {
     getMaxPlayers,
     getAllRooms,
     removePlayer,
-    deleteRoom
+    deleteRoom,
+    getGame,
 };
 

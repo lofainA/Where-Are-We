@@ -3,6 +3,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import setupSocket from './socket.js';
 import roomRoutes from './routes/roomRoutes.js';
+import gameRoutes from './routes/gameRoutes.js';
 
 const app = express();
 const server = createServer(app);
@@ -10,6 +11,7 @@ const io = new Server(server, { cors: { origin: '*' } });
 
 app.use(json());
 app.use('/api/rooms', roomRoutes);
+app.use('/api/games', gameRoutes);
 
 app.get('/', (req, res) => {
   res.send('Backend is running!');

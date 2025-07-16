@@ -19,7 +19,7 @@ function setupSocket(io) {
         socket.on('get-room-players', (roomId) => getRoomPlayers(io,socket, roomId));
         socket.on('get-room-name', (roomId) => getRoomName(io, socket, roomId));
         socket.on('get-max-players', (roomId) => getMaxPlayers(io, socket, roomId));
-        socket.on('start-game', (data) => {initializeGame(io, socket, data)})
+        socket.on('start-game', (roomId) => {initializeGame(io, socket, roomId)})
         socket.on('next-round', (data) => {nextRound(io, socket, data)});
         socket.on('end-game', (data) => {endGame(io, socket, data)});
     });

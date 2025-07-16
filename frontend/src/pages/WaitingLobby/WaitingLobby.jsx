@@ -21,11 +21,14 @@ const WaitingLobby = () => {
     const handleGameStart = () => {
         if (role !== 'host') return;    
         socket.emit("start-game", roomId);
-
-        let gameIdTemp = "";
-        socket.on("game-started", (gameId) => {gameIdTemp = gameId;});
-        navigate(`/${roomId}/game/${gameIdTemp}`);
     }
+
+    useEffect(() => {
+        const handleGameInitialized = ({ gameId, _ }) => navigate(`/${roomId}/game/${gameId}`);
+        
+        socket.on("game-initialized", handleGameInitialized);
+        return () => socket.off("game-initialized", handleGameInitialized);
+    }, [])
 
     return (
         <div className="waiting-lobby-container">

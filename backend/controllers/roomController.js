@@ -46,8 +46,12 @@ export const disconnectPlayer = (io, socket) => {
     const roomId = roomStore.removePlayer(socket.id);
     if (roomId) {
         const players = roomStore.getPlayers(roomId);
-        if (players.length === 0) roomStore.deleteRoom(roomId);
+        if (players.length === 0) {
+            roomStore.deleteRoom(roomId)
+        }  
         else io.to(roomId).emit('updated-players', players);
+    } else {
+        socket.emit('end-game', {io, socket, })
     }
 };
 
