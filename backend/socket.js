@@ -8,7 +8,8 @@ import {
 } from './controllers/roomController.js';
 
 import {
-    initializeGame
+    initializeGame,
+    updateStage,
 } from './controllers/gameController.js';
 
 function setupSocket(io) {
@@ -22,6 +23,7 @@ function setupSocket(io) {
         socket.on('start-game', (roomId) => {initializeGame(io, socket, roomId)})
         socket.on('next-round', (data) => {nextRound(io, socket, data)});
         socket.on('end-game', (data) => {endGame(io, socket, data)});
+        socket.on('change-stage', ({ roomId, newStage }) => {updateStage(io, roomId, newStage)});
     });
 }
 

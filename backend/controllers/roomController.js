@@ -1,3 +1,4 @@
+import gameStore from '../utils/gameStore.js';
 import roomStore from '../utils/roomStore.js';
 
 export const createRoom = (io, socket, {roomName, maxPlayers, liarCount, playerName}) => {
@@ -47,6 +48,7 @@ export const disconnectPlayer = (io, socket) => {
     if (roomId) {
         const players = roomStore.getPlayers(roomId);
         if (players.length === 0) {
+            gameStore.deleteGame(roomId);
             roomStore.deleteRoom(roomId)
         }  
         else io.to(roomId).emit('updated-players', players);

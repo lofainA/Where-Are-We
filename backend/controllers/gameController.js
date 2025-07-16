@@ -15,9 +15,17 @@ export const initializeGame = (io, socket, roomId) => {
     gameStore.assignRoles(gameId);
     gameStore.assignLocation(gameId);
 
-    roomStore.rooms[roomId].game = gameId; // TODO: assign game to room (current task)
+    roomStore.rooms[roomId].game = gameId; 
+
+    // console.log("Room details: ", roomStore.rooms[roomId]);
     // socket.emit('game-initialized', { gameId,  });
-    io.to(roomId).emit('game-initialized', { gameId: gameId, players: gameStore.getPlayers(gameId) })
+
+    io.to(roomId).emit('game-initialized', { 
+        gameId: gameId, 
+        players: gameStore.getPlayers(gameId) 
+    });
+    
+    updateStage(io, roomId, 'reveal-roles');
 };
 
 export const nextRound = (io, socket, { gameId }) => {
@@ -45,6 +53,10 @@ export const endGame = (io, socket, { gameId }) => {
 
     // Clean up the game data
     delete gameStore.games[gameId];
+}
+
+export const updateStage = (io, roomId, newStage) => {
+    io.to(roomId).emit('update-stage', newStage);
 }
 
 // TODO: Remove player from game method

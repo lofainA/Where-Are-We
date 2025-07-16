@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { PlayerContext } from '../../../contexts/PlayerContext';
 
-const RevealPage = () => {
+const RevealScreen = () => {
 
     const { playerName, gameRole } = useContext(PlayerContext);
 
@@ -14,4 +14,4 @@ const RevealPage = () => {
     );
 };
 
-export default RevealPage;
+export default RevealScreen;

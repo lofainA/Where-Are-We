@@ -4,7 +4,7 @@ import gameStore from '../utils/gameStore.js';
 import roomStore from '../utils/roomStore.js';
 
 // GET all games
-router.get('/all-games', (req, res) => {
+router.get('/', (req, res) => {
     console.log("All games api");
     const games = gameStore.getAllGames();
     res.json(games);

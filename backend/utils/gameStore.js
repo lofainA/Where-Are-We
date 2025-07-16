@@ -76,7 +76,14 @@ const assignLocation = (gameId) => {
     return games[gameId].location;
 }
 
-// TODO: Delete game method
+const deleteGame = (roomId) => {
+    for (const gameId in games) {
+        if (games[gameId].roomId === roomId) {
+            delete games[gameId];
+            return;
+        }
+    }
+}
 
 const getAllGames = () => {
     return games;
@@ -111,5 +118,6 @@ export default {
     getLiar,
     getLocation,
     getCurrRound,
-    getAllGames
+    getAllGames,
+    deleteGame
 }
