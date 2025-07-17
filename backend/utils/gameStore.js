@@ -8,6 +8,7 @@ const games = {
     //      liar: "123" (some player id),
     //      location: "museum",
     //      currRound: 1,
+    //      stage: currStage
     // }
 };
 
@@ -41,7 +42,8 @@ const createNewGame = (roomId) => {
         players: roomStore.getPlayers(roomId),
         liar: "",
         location: "",
-        currRound: 1
+        currRound: 1,
+        stage: "reveal-roles"
     };
     // .log("Created Game: ", games[gameId]);
     return gameId;

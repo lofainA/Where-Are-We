@@ -72,3 +72,12 @@ export const getMaxPlayers = (io, socket, roomId) => {
     const maxPlayers = roomStore.getMaxPlayers(roomId);
     socket.emit('max-players-updated', maxPlayers);
 };
+
+export const getCurrentGame = (io, socket, roomId) => {
+    const game = roomStore.getGame(roomId);
+    if(!game) {
+        socket.emit('no-game-available');
+    } else {
+        socket.emit('game-fetched', game);
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import CreateRoom from './pages/CreateRoom/CreateRoom';
@@ -9,9 +9,9 @@ import Game from './pages/Game/Game';
 
 import { PlayerContext } from './contexts/PlayerContext';
 import { RoomContext } from './contexts/RoomContext';
+import { GameContext } from './contexts/GameContext';
 
 import socket from './socket';
-import { use } from 'react';
 
 const App = () => {
 
@@ -28,13 +28,18 @@ const App = () => {
     const [players, setPlayers] = useState([]);
     const [maxPlayers, setMaxPlayers] = useState(4);
 
+    // Game state
+    const [gameId, setGameId] = useState(null);
+    const [liar, setLiar] = useState(null);
+    const [location, setLocation] = useState(null);
+
     useEffect(() => {
         if(playerName.trim() === '') {
             setRole(''); // Reset role if playerName is empty
             navigate('/'); // Redirect to landing page
         }
     }, [playerName]);
-
+    
     useEffect(() => {
         const handleGameInitialized = ({ _, players }) => {
             for (let i = 0; i < players.length; i++) {
@@ -76,22 +81,24 @@ const App = () => {
     }, [roomId])
 
     return (
-        <PlayerContext.Provider value={{ playerName, setPlayerName, role, setRole, gameRole, setGameRole }}>
-            <RoomContext.Provider value={{ roomId, setRoomId, 
-                                           roomName, setRoomName, 
-                                           players, setPlayers, 
-                                           maxPlayers, setMaxPlayers }}>
-                <div className="app">
-                    <Routes>
-                        <Route path="/" element={<LandingPage />} />
-                        <Route path="/create-room" element={<CreateRoom />} />
-                        <Route path="/join-room" element={<JoinRoom />} />
-                        <Route path="/waiting-lobby/:roomId" element={<WaitingLobby />} />
-                        <Route path="/:roomId/game/:gameId" element={<Game />} />
-                    </Routes>
-                </div>
-            </RoomContext.Provider>
-        </PlayerContext.Provider>
+        <GameContext.Provider value={{ gameId, setGameId, liar, setLiar, location, setLocation }}>
+            <PlayerContext.Provider value={{ playerName, setPlayerName, role, setRole, gameRole, setGameRole }}>
+                <RoomContext.Provider value={{ roomId, setRoomId, 
+                                            roomName, setRoomName, 
+                                            players, setPlayers, 
+                                            maxPlayers, setMaxPlayers }}>
+                    <div className="app">
+                        <Routes>
+                            <Route path="/" element={<LandingPage />} />
+                            <Route path="/create-room" element={<CreateRoom />} />
+                            <Route path="/join-room" element={<JoinRoom />} />
+                            <Route path="/waiting-lobby/:roomId" element={<WaitingLobby />} />
+                            <Route path="/:roomId/game/:gameId" element={<Game />} />
+                        </Routes>
+                    </div>
+                </RoomContext.Provider>
+            </PlayerContext.Provider>
+        </GameContext.Provider>
     );
 }
 

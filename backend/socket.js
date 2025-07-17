@@ -5,6 +5,7 @@ import {
     getRoomName,
     getRoomPlayers,
     joinRoom,
+    getCurrentGame
 } from './controllers/roomController.js';
 
 import {
@@ -20,6 +21,8 @@ function setupSocket(io) {
         socket.on('get-room-players', (roomId) => getRoomPlayers(io,socket, roomId));
         socket.on('get-room-name', (roomId) => getRoomName(io, socket, roomId));
         socket.on('get-max-players', (roomId) => getMaxPlayers(io, socket, roomId));
+        socket.on('get-game', (roomId) => getCurrentGame(io, socket, roomId));
+        socket.on('get-stage-status', (gameId) => getGameStage(io, socket, gameId));
         socket.on('start-game', (roomId) => {initializeGame(io, socket, roomId)})
         socket.on('next-round', (data) => {nextRound(io, socket, data)});
         socket.on('end-game', (data) => {endGame(io, socket, data)});

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { PlayerContext } from "../../contexts/PlayerContext";
 import { RoomContext } from "../../contexts/RoomContext";
 
@@ -13,6 +14,7 @@ const WaitingLobby = () => {
     const navigate = useNavigate();
     const { role } = useContext(PlayerContext);
     const { roomId, players, roomName, maxPlayers } = useContext(RoomContext);
+    const { setGameId } = useContext(GameContext)
     
     // TODO: update players in roomcontext when start game is clicked
 
@@ -24,7 +26,10 @@ const WaitingLobby = () => {
     }
 
     useEffect(() => {
-        const handleGameInitialized = ({ gameId, _ }) => navigate(`/${roomId}/game/${gameId}`);
+        const handleGameInitialized = ({ gameId, _ }) => {
+            setGameId(gameId);
+            navigate(`/${roomId}/game/${gameId}`)
+        };
         
         socket.on("game-initialized", handleGameInitialized);
         return () => socket.off("game-initialized", handleGameInitialized);
