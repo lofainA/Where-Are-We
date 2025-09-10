@@ -1,4 +1,5 @@
 import { generateRoomId } from './randomUtils.js';
+import gameStore from './gameStore.js';
 
 const rooms = {
     // Example:
@@ -74,7 +75,7 @@ const removePlayer = (socketId) => {
             if(players[i].id === socketId && players[i].role === 'host') {
                 if (players.length === 1) {
                     deleteRoom(roomId); // Delete room if no players left
-                    return null; // No room left
+                    return null;
                 } else {
                     players[i + 1].role = 'host'; // Reassign host role to next player
                 }
@@ -86,12 +87,19 @@ const removePlayer = (socketId) => {
         }
         rooms[roomId].players = updatedPlayers;
 
+        if (rooms[roomId].players.length === 0) {
+            gameStore.deleteGame(roomId);
+            deleteRoom(roomId);
+            return null;
+        }
+
         if (rooms[roomId].players.length < before) return roomId;
     }
     return null;
 };
 
 const deleteRoom = (roomId) => {
+    gameStore.deleteGame(roomId);
     delete rooms[roomId];
 };
 

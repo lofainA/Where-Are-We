@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { PlayerContext } from "../../contexts/PlayerContext";
 import { RoomContext } from "../../contexts/RoomContext";
+import { GameContext } from "../../contexts/GameContext";
 
 import socket from "../../socket";
 
@@ -67,6 +68,9 @@ const WaitingLobby = () => {
                         text="Start Game" 
                         onClick={handleGameStart} />
                 )}  
+            </div>
+            <div className="lobby-code">
+                <div className="code">{roomId}</div>
             </div>
         </div>
     );

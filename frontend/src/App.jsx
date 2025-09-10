@@ -6,6 +6,7 @@ import JoinRoom from './pages/JoinRoom/JoinRoom';
 import LandingPage from './pages/LandingPage/LandingPage';
 import WaitingLobby from './pages/WaitingLobby/WaitingLobby';
 import Game from './pages/Game/Game';
+import DescribingScreen from './pages/Game/DescribingScreen/DescribingScreen';
 
 import { PlayerContext } from './contexts/PlayerContext';
 import { RoomContext } from './contexts/RoomContext';
@@ -35,6 +36,7 @@ const App = () => {
 
     useEffect(() => {
         if(playerName.trim() === '') {
+            setGameRole('none');
             setRole(''); // Reset role if playerName is empty
             navigate('/'); // Redirect to landing page
         }

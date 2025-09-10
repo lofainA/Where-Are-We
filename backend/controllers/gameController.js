@@ -1,5 +1,6 @@
 import gameStore from "../utils/gameStore.js";
 import roomStore from "../utils/roomStore.js";
+import locationStore from "../utils/locationStore.js";
 
 export const initializeGame = (io, socket, roomId) => {
     // Create new game in game store
@@ -56,7 +57,34 @@ export const endGame = (io, socket, { gameId }) => {
 }
 
 export const updateStage = (io, roomId, newStage) => {
-    io.to(roomId).emit('update-stage', newStage);
+    console.log(`[updateStage] Emitting 'update-stage' to room ${roomId} with stage: ${newStage}`);
+    io.to(roomId).emit('update-stage', { newStage: newStage });
+}
+
+export const getGameStage = (io, socket, gameId) => {
+    const game = gameStore.getGame(gameId);
+    if (!game) {
+        return socket.emit('stage-error', 'Game not found');
+    }
+    updateStage(io, game.roomId, game.stage);
+}
+
+export const getLocationImage = (io, socket, location) => {
+    const img = locationStore.getLocationImage(location);
+    if (!img) {
+        return socket.emit('location-error', 'Location not found');
+    }
+    socket.emit('location-image', { img });
+};
+
+export const getGame = (io, socket, gameId) => {
+    const game = gameStore.getGame(gameId);
+    const roomId = gameStore.getRoomId(gameId);
+    
+    if(!game) {
+        return io.to(roomId).emit('game-error', 'gameId not found');
+    }
+    io.to(roomId).emit('game-details', game);
 }
 
 // TODO: Remove player from game method

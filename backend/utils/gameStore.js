@@ -1,5 +1,6 @@
 import { generateGameId } from "./randomUtils.js";
 import roomStore from "./roomStore.js";
+import locationStore from "./locationStore.js";
 
 const games = {
     // "randomlyGeneratedId": {
@@ -73,8 +74,8 @@ const assignRoles = (gameId) => {
 const assignLocation = (gameId) => {
     if(!games[gameId]) return null;
     if(games[gameId].location != "") return; // Location already assigned
-    const randomIndex = Math.floor(Math.random() * locations.length);
-    games[gameId].location = locations[randomIndex];
+
+    games[gameId].location = locationStore.getRandomLocation();
     return games[gameId].location;
 }
 
@@ -111,6 +112,10 @@ const getCurrRound = (gameId) => {
     return games[gameId]?.currRound || null;
 };
 
+const getRoomId = (gameId) => {
+    return games[gameId]?.roomId || null;
+}
+
 export default {
     createNewGame,
     assignRoles,
@@ -121,5 +126,6 @@ export default {
     getLocation,
     getCurrRound,
     getAllGames,
-    deleteGame
+    deleteGame,
+    getRoomId,
 }

@@ -10,8 +10,8 @@ const server = createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
 app.use(json());
-app.use('/api/rooms', roomRoutes);
-app.use('/api/games', gameRoutes);
+app.use('/rooms', roomRoutes);
+app.use('/games', gameRoutes);
 
 app.get('/', (req, res) => {
   res.send('Backend is running!');

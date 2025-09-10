@@ -1,0 +1,130 @@
+.reveal-screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reveal-location-message {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #d4b7ff 0%, #523B75 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 5rem;
+}
+
+.reveal-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reveal-subtitle {
+    font-size: 2rem;
+}
+
+.reveal-location {
+    font-size: 4rem;
+}
+
+.image-stack {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 4rem;
+}
+
+:root {
+    --location-image-width: 400px;
+    --location-image-height: 270px;
+}
+
+.location-image {
+    width: var(--location-image-width);
+    height: var(--location-image-height);
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    position: relative;
+    transform: rotate(-2deg);
+    z-index: 3;
+}
+
+.image-stack::before {
+    content: '';
+    position: absolute;
+    width: var(--location-image-width);
+    height: var(--location-image-height);
+    background: #9F9F9F;
+    border-radius: 12px;
+    transform: rotate(-10deg);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.image-stack::after {
+    content: '';
+    position: absolute;
+    width: var(--location-image-width);
+    height: var(--location-image-height);
+    background: #373737;
+    border-radius: 12px;
+    left: 10px;
+    transform: rotate(10deg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Subtle animations */
+.image-stack {
+    transition: transform 0.3s ease;
+}
+
+.image-stack:hover {
+    transform: scale(1.02);
+}
+
+.location-image {
+    transition: transform 0.3s ease;
+}
+
+.image-stack:hover .location-image {
+    transform: rotate(5deg);
+}
+
+/* Liar POV */
+
+.reveal-liar-message {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: radial-gradient(circle at center, #000 0%, #0D021C 30%,  #523B75 90%);
+    gap:2rem;
+}
+
+.reveal-liar-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.liar-shit {
+    display: flex;
+    gap: 1rem;
+    font-size: 4.5rem;
+}
+
+.liar-message {
+    text-align: center;
+    width: 30%;
+}
